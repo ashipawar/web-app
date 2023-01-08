@@ -1,0 +1,256 @@
+{% extends 'Site/base.html' %} 
+
+{% block title %}Home{% endblock title %} 
+
+{% block style %} 
+@import url('https://fonts.googleapis.com/css2?family=Arimo:wght@500;700&display=swap');
+body{
+    background-color: #343434; 
+} 
+
+* {
+    font-family: 'Arimo', sans-serif;
+    color: white;
+}
+
+.bg-black {
+    background-color: #000;   
+}
+
+
+.col-auto img {
+    height: 168px;
+}
+
+footer a {
+    color: #eee;
+    text-decoration: none;
+}
+
+.scrollable-horizontal {
+    overflow-x: auto;
+    max-width: 100%;
+  }
+  
+  .scrollable-horizontal::-webkit-scrollbar {
+    width: 0.1em;
+    height: 0.4em;
+    background-color: #343434;
+  }
+  
+  .scrollable-horizontal::-webkit-scrollbar-thumb {
+    background-color: #000000;
+    border-radius: 0.2em;
+  }
+  
+  .scrollable-horizontal::-webkit-scrollbar-track {
+    background-color: #343434;
+  }
+
+  .masthead {
+    height: 100vh;
+    min-height: 500px;
+    background-image: linear-gradient(45deg,rgba(52,52,52, 1),rgba(0, 83, 255, 0.8)), url('https://i.ibb.co/4WYpPC5/184125-4213193879.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; 
+  } 
+  #target {
+    font-weight: 900;
+    text-shadow: 0 0 3px black;
+  }
+
+  #img_container {
+    position:relative;
+    display:inline-block;
+}
+
+.button {
+    position:absolute;
+    bottom:5px;
+    right:25px;
+}
+ 
+{% endblock style %} 
+
+{% block content %}
+
+<!--Header--> 
+<!-- Navigation -->
+<nav id="nav" class="navbar navbar-expand shadow fixed-top">
+  <div class="container">
+    <img class="navbar-brand img-fluid " width="50" height="50" src="https://i.ibb.co/yYVrd5F/logo.png"/> 
+     
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item active">
+          <a class="nav-link text-white" href="{% url 'homeView' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="{% url 'logoutView' %}">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+ <script> 
+var navbar = document.getElementById("nav");
+
+var sticky = 100;
+
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    navbar.style.display = "none";
+  } else {
+    navbar.style.display = "block";
+  }
+}
+window.addEventListener("scroll", myFunction);
+
+ </script>
+
+  <!-- Full Page Image Header with Vertically Centered Content -->
+  <header class="masthead">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-12 text-center">
+            <h1 id="target" class="text-white font-weight-bold">Experience the magic of the movies with us!</h1>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <script>
+    let text = "Experience the magic of the movies with us!";
+let i = 0;
+
+function typeText() {
+  if (i > text.length) {
+    return;
+  }
+  document.getElementById("target").innerHTML = text.substring(0, i);
+  i++;
+  setTimeout(typeText, 50);
+}
+
+typeText();
+  </script>
+
+
+<!--Categories-->
+
+<div class="container-fluid min-vh-100 px-5 pb-5 d-flex flex-column">
+    
+    <div class="row my-4">
+        <div class="col">
+            <div class="" id="accordionExample">
+
+                <!--Action Category-->
+                <div class="">     
+                    <h1 class="fw-bold text-truncate py-3" id="heading2" data-bs-toggle="collapse" data-bs-target="#collapse2"> Action </h1> 
+                    <div id="collapse2" class="accordion-collapse collapse show">
+                        <div class="row flex-nowrap scrollable-horizontal">
+                             {% for movie in data %} 
+                             {% if movie.category == 'action' %} 
+                                 <div class='text-center'> 
+                                 <div class="col-auto">
+                                    <div id="img_container">
+                                 <img src="{{movie.thumbnail}}" /> 
+                                 <a href="{% url 'watchView' id=movie.id %}" class="button btn btn-primary btn-sm">Watch</a>
+                                    </div> 
+                                 <br>  
+                                  <h6 >{{movie.title}}</h6> 
+                                  </div> 
+                                  </div> 
+                                  {% else %}
+                              {% endif %}
+                              {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <!--End of category-->
+
+             <!--Comedy Category-->
+             <div class="col">
+             <div class="" id="accordionExample">
+             <div class="">
+                <h1 class="fw-bold text-truncate py-3" id="heading2" data-bs-toggle="collapse" data-bs-target="#collapse2"> Comedy </h1>
+                <div id="collapse2" class="accordion-collapse collapse show">
+                    <div class="row flex-nowrap scrollable-horizontal">
+                        {% for movie in data %} 
+                        {% if movie.category == 'comedy' %} 
+                        <div class="col-auto">
+                            <div id="img_container">
+                                <img src="{{movie.thumbnail}}" /> 
+                                <a href="{% url 'watchView' id=movie.id %}" class="button btn btn-primary btn-sm">Watch</a>
+                                   </div> 
+                          <h6 class="text-center">{{movie.title}}</h6> 
+                      </div>
+                      {% endif %}
+                     {% endfor %}   
+                    </div>
+                </div>
+            </div>
+        </div> </div> </div>
+        <!--End of category-->
+ 
+<!--Horror Category-->
+ 
+  <div class="col">
+  <div class="" id="accordionExample">
+<div class="">
+    <h1 class="fw-bold text-truncate py-3" id="heading2" data-bs-toggle="collapse" data-bs-target="#collapse2"> Horror </h1>
+    <div id="collapse2" class="accordion-collapse collapse show">
+        <div class="row flex-nowrap  scrollable-horizontal">
+            {% for movie in data %} 
+            {% if movie.category == 'horror' %} 
+            <div class="col-auto">
+                <div id="img_container">
+                    <img src="{{movie.thumbnail}}" /> 
+                    <a href="{% url 'watchView' id=movie.id %}" class="button btn btn-primary btn-sm">Watch</a>
+                       </div> 
+              <h6 class="text-center">{{movie.title}}</h6> 
+          </div>
+          {% endif %}
+         {% endfor %}
+        </div>
+    </div>
+</div>
+</div> </div>
+</div> 
+<!--End of category-->
+
+<!--Scifi Category-->
+<div class="col">
+  <div class="" id="accordionExample">
+<div class="">
+    <h1 class="fw-bold text-truncate py-3" id="heading2" data-bs-toggle="collapse" data-bs-target="#collapse2"> Sci-fi </h1>
+    <div id="collapse2" class="accordion-collapse collapse show">
+        <div class="row flex-nowrap  scrollable-horizontal">
+            {% for movie in data %} 
+            {% if movie.category == 'sci-fi' %} 
+            <div class="col-auto">
+                <div id="img_container">
+                    <img src="{{movie.thumbnail}}" /> 
+                    <a href="{% url 'watchView' id=movie.id %}" class="button btn btn-primary btn-sm">Watch</a>
+                       </div> 
+              <h6 class="text-center">{{movie.title}}</h6> 
+          </div>
+          {% endif %}
+         {% endfor %}   
+        </div>
+    </div>
+</div>
+</div> </div>
+</div> 
+<!--End of category-->
+
+
+
+ <!--If any another categories needed to add, just copy and paste the categories up here. -->
+ 
+</div>
+
+{% endblock content %}

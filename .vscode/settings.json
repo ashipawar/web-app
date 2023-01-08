@@ -1,0 +1,13 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/eb082d41-c8a6-43a9-877e-ee492e352586/AppServices/subscriptions/eb082d41-c8a6-43a9-877e-ee492e352586/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/video-appfinal",
+    "appService.deploySubpath": ".",
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        "./Video",
+        "-p",
+        "*test*.py"
+    ],
+    "python.testing.pytestEnabled": false,
+    "python.testing.unittestEnabled": true
+}
