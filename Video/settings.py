@@ -94,9 +94,6 @@ DATABASES = {
 'PASSWORD': 'demo123!',
 'HOST': 'videoserverdb1.postgres.database.azure.com',
 'PORT': '5432',
-'OPTIONS':{
-"sslmode":"require"
-},
 }
 }
 
